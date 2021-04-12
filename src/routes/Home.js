@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { useStore } from "react-redux";
+import { connect, useStore } from "react-redux";
 
-function Home() {
+function Home({ toDos }) {
   const [text, setText] = useState("");
 
   const onChange = (event) => {
@@ -21,9 +21,13 @@ function Home() {
         <input onChange={onChange} type="text" value={text} />
         <button>Добавить задачу</button>
       </form>
-      <ul></ul>
+      <ul>{JSON.stringify(toDos)}</ul>
     </>
   );
 }
 
-export default Home;
+function getCurrentState(state) {
+  return { toDos: state };
+}
+
+export default connect(getCurrentState)(Home);
